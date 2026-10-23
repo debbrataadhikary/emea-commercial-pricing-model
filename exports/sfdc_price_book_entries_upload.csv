@@ -1,0 +1,5 @@
+Pricebook2Id,Product2Id,ProductCode,CurrencyIsoCode,UnitPrice,UseStandardPrice,IsActive,Market__c,Channel__c,Jira_Ticket__c,Approved_By__c
+01s5G000004EMEA,01t5G00000G7SEN01,DX-CGM-G7-SEN-01,EUR,68.5,False,True,Germany,Distributor_Tier1,JIRA-PRC-1042,Finance_EMEA
+01s5G000004EMEA,01t5G00000G7SEN01,DX-CGM-G7-SEN-01,GBP,58.0,False,True,United Kingdom,Distributor_Tier1,JIRA-PRC-1045,Finance_EMEA
+01s5G000004EMEA,01t5G00000G7TRN01,DX-CGM-G7-TRN-01,EUR,145.0,False,True,Germany,Distributor_Tier1,JIRA-PRC-1055,Finance_EMEA
+01s5G000004EMEA,01t5G00000G7SEN01,DX-CGM-G7-SEN-01,EUR,66.0,False,True,Baltics,Distributor_Authorized,JIRA-PRC-1052,Finance_EMEA

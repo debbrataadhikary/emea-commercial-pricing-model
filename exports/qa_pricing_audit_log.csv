@@ -1,0 +1,6 @@
+Audit_Dimension,Verification_Finding,Gate_Status
+SFDC Schema Validation,Passed (All mandatory Pricebook2Id & UnitPrice fields populated),PASS
+Negative Margin Check,Passed (Minimum contribution margin across all SKUs is 58.6% > 50% gate),PASS
+Cross-Border Arbitrage Check,Action Required: Poland simulation flagged for commercial re-indexation,FLAG
+Jira IT Sprint Traceability,Passed (100% of commercial change rows trace to active Jira ticket),PASS
+FX Hedge Budget Alignment,"Passed (SEK, GBP, DKK re-hedged against Q4 Treasury rates)",PASS
