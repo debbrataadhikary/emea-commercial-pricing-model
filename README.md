@@ -84,20 +84,33 @@ emea-commercial-pricing-model/
 
 ## 5. Excel Model Structure (`emea_commercial_pricing_engine.xlsx`)
 
-The financial workbook contains 5 interlinked, professionally styled worksheets:
+The financial workbook contains **6 interconnected, formula-driven worksheets** with **242 active Excel formulas** (0 hardcoded shortcuts, 0 errors):
 
-1. **`Executive_Summary`:**
-   * Dynamic KPI Scorecard: Blended EMEA Net ASP, Gross-to-Net Realization Rate, Blended Contribution Margin, and Jira Ticket Compliance.
-   * Executive Scenario Matrix comparing Base Case vs Inflationary Indexation (+3.8% ASP), Tier-1 Volume Concessions (-3.5% ASP), and Nordic FX Defense (+6.0% list price).
-2. **`Price_Book_Master`:**
-   * Aligned directly with Salesforce CPQ schema (`Pricebook2Id`, `ProductCode`, `Market`, `Currency`, `List Price`, `Distributor Disc %`, `Contracted Price`).
-   * Automated FX translation engine for multi-currency markets (EUR base, GBP, SEK, DKK).
-3. **`Gross_to_Net_Waterfall`:**
+1. **`Control_and_Parameters` (Global Master Assumptions):**
+   * **Active Scenario Switcher (Cell `B5`):** Dynamically toggles between 4 strategic scenarios using `=INDEX(E5:E8, B5)`.
+   * **Treasury FX Reference Table:** Budget rates vs spot rates for EUR, GBP, SEK, and DKK with variance formulas.
+   * **Product Standard Cost & COGS Master:** Manufacturing unit costs and logistics benchmarks.
+   * **Commercial Discount Policy Matrix:** Standard tiered discounts, annual volume rebates, co-op MDF, and cash terms (2/10 Net 30).
+2. **`Executive_Summary` (C-Suite Decision Dashboard):**
+   * **Dynamic KPI Scorecard:** Average Net Realized ASP (`=AVERAGE(...)`), Gross-to-Net Realization Rate (`=Net_ASP / Gross_List`), Blended Contribution Margin %, and Salesforce CPQ Deployment Parity.
+   * **Formula-Driven Macro Decision Matrix:** Dynamic unit projections, revenue, gross profit, and margin percentage across all 4 scenarios linked directly to the assumptions tab.
+3. **`Price_Book_Master` (Salesforce CPQ Ready):**
+   * Aligned directly with Salesforce CPQ schema (`Pricebook2Id`, `ProductCode`, `Market`, `Currency`, `List Price`, `Contracted Price`).
+   * **Dynamic Multi-Currency FX Conversion:** `=INDEX(FX_Rates, MATCH(Currency, Currency_List, 0))`.
+   * **Policy Discount Automation:** `=INDEX(Discounts, MATCH(Channel, Channel_List, 0))`.
+   * **EU Price Corridor Parity Audit:** Automated anomaly formula flagging cross-border price arbitrage risk:  
+     `=IF(ABS(Price - AVERAGEIFS(...)) / AVERAGEIFS(...) > 0.15, "ARBITRAGE RISK", "COMPLIANT")`.
+4. **`Gross_to_Net_Waterfall` (Dynamic Margin Bridge):**
    * Granular SKU and account-level waterfall bridge across Germany (MedSupply GmbH), UK (MediCare Alliance), France (Public Tender), Sweden (NordicHealth AB), and Baltics (BalticPharma UAB).
-4. **`Sensitivity_and_Elasticity`:**
+   * Dynamic deduction lookup for Base Discounts, Volume Rebates, Co-Op MDF, Payment Terms, and Freight.
+   * Automated Health Status flags (`OPTIMAL (>60%)`, `ACCEPTABLE (50-60%)`, `MARGIN REVIEW (<50%)`).
+5. **`Sensitivity_and_Elasticity` (Econometric Matrix):**
    * Two-Way Data Table calculating Total Gross Profit (€M) across price variations (-10% to +10%) and demand elasticities (-0.80 to -1.80).
-5. **`Jira_SFDC_Change_Governance`:**
+   * Dynamic baseline lookup linked to Waterfall averages:  
+     `=($B$5 * (1 + Delta_P * PED) * (($B$6 * (1 + Delta_P)) - $B$7)) / 1000000`.
+6. **`Governance_and_Audit` (Jira & SFDC Deployment Integrity):**
    * Audit log linking commercial change requests (`JIRA-PRC-1042` through `1062`) to Legal/Compliance sign-offs, Finance approvals, and IT sprint releases.
+   * Automated KPI formulas: `=COUNTA(...)`, `=COUNTIF(..., "Production Deployed")`, and deployment success rate.
 
 ---
 
